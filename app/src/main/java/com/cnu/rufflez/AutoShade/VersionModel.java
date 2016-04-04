@@ -1,4 +1,4 @@
-package com.example.rufflez.myapplication;
+package com.cnu.rufflez.AutoShade;
 
 /**
  * Created by rufflez on 10/4/15.

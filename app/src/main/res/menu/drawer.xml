@@ -5,19 +5,19 @@
 
         <item
             android:id="@+id/drawer_labels"
-            android:title="@string/floating_labels"/>
+            android:title="@string/Home"/>
 
         <item
             android:id="@+id/drawer_fab"
-            android:title="@string/fab"/>
+            android:title="@string/Settings"/>
 
         <item
             android:id="@+id/drawer_snackbar"
-            android:title="@string/snackbar"/>
+            android:title="@string/Report"/>
 
         <item
             android:id="@+id/drawer_coordinator"
-            android:title="@string/coordinator"/>
+            android:title="@string/Misc"/>
 
     </group>
 

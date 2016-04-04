@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="utf-8"?>
+    <PreferenceScreen
+        xmlns:android="http://schemas.android.com/apk/res/android">
+
+        <PreferenceCategory
+            android:key="my_category_key"
+            android:title="Blind Settings">
+
+            <SwitchPreference
+                android:key="Automation"
+                android:title="Automation"/>
+            <Preference
+                android:title="Wifi Status"
+                android:summary="Connected to Wifi-CNU"
+                android:key="wifi" />
+            <ListPreference     android:title="Speed"
+                android:summary="Select Blind Speed"
+                android:key="speed"
+                android:defaultValue="1"
+                android:entries="@array/listArray"
+                android:entryValues="@array/listValues" />
+            <EditTextPreference
+                android:key="wand_rotation"
+                android:title="Wand Rotation"
+                android:defaultValue="Default"
+                android:summary="calibrated wand rotation"
+                android:dialogTitle="New Calibration" />
+            <ListPreference     android:title="Open Threshold"
+                android:summary="select open threshold"
+                android:key="open_thres"
+                android:defaultValue="1"
+                android:entries="@array/listArray"
+                android:entryValues="@array/listValues" />
+            <ListPreference     android:title="Close Threshold"
+                android:summary="select close threshold"
+                android:key="close_thres"
+                android:defaultValue="1"
+                android:entries="@array/listArray"
+                android:entryValues="@array/listValues" />
+
+        </PreferenceCategory>
+
+    </PreferenceScreen>

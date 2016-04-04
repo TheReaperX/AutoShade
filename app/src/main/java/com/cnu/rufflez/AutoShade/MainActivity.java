@@ -1,11 +1,14 @@
-package com.example.rufflez.myapplication;
+package com.cnu.rufflez.AutoShade;
 
 import android.os.Bundle;
 import android.support.design.widget.NavigationView;
 import android.support.design.widget.TabLayout;
-import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentManager;
-import android.support.v4.app.FragmentPagerAdapter;
+//import android.support.v4.app.Fragment;
+//import android.support.v4.app.FragmentManager;
+//import android.support.v4.app.FragmentPagerAdapter;
+import android.support.v13.app.FragmentPagerAdapter;
+import android.app.Fragment;
+import android.app.FragmentManager;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.view.ViewPager;
 import android.support.v4.widget.DrawerLayout;
@@ -72,11 +75,11 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void setupViewPager(ViewPager viewPager){
-        ViewPagerAdapter adapter = new ViewPagerAdapter(getSupportFragmentManager());
-        adapter.addFrag(new FloatingLabelsFragment(), "Floating Labels");
-        adapter.addFrag(new FABLayoutFragment(), "FAB");
-        adapter.addFrag(new SnackBarFragment(), "Snackbar");
-        adapter.addFrag(new CoordinatorFragment(), "Coordinator Layout");
+        ViewPagerAdapter adapter = new ViewPagerAdapter(getFragmentManager());
+        adapter.addFrag(new homeFragment(), "Home");
+        adapter.addFrag(new settingsFragment(), "Settings");
+        adapter.addFrag(new reportFragment(), "Report");
+        adapter.addFrag(new miscFragment(), "Misc");
         viewPager.setAdapter(adapter);
     }
 
