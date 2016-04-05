@@ -21,23 +21,22 @@ import java.util.TimerTask;
 /**
  * Created by Nana on 3/14/2016.
  */
-public class RestTask extends AsyncTask<String,String, String> {
+public class RestTask extends AsyncTask<String,String, Integer> {
 
         public static final String BaseUrl = "https://cloud.arest.io/001/";
         private TextView t;
-        private ProgressDialog d;
 
         RestTask(){}
         RestTask(TextView t) {
             this.t = t;
         }
-        RestTask(TextView t, ProgressDialog d){
+        /*RestTask(TextView t, ProgressDialog d){
             this.t = t;
             this.d = d;
-        }
+        }*/
 
         @Override
-        protected String doInBackground(String... params)
+        protected Integer doInBackground(String... params)
         {
             HttpURLConnection connection = null;
             BufferedReader reader = null;
@@ -58,25 +57,17 @@ public class RestTask extends AsyncTask<String,String, String> {
                 //return buffer.toString();
                 String finalRes = buffer.toString();
                 JSONObject json = null;
-                String message = null;
                 int  return_value= -1;
                 try {
-                    System.out.println(finalRes);
+
                     json = new JSONObject(finalRes);
-                    if(json.has("message")) {
-                        message = json.getString("message");
-                    }
                     if(json.has("return_value")) {
                         return_value = json.getInt("return_value");
                     }
                 } catch (JSONException e) {
                     e.printStackTrace();
                 }
-                if(message == null) {
-                    String ret_val = String.valueOf(return_value);
-                    return ret_val;
-                }
-                return message;
+                return return_value;
             } catch (MalformedURLException e) {
                 e.printStackTrace();
             } catch (IOException e) {
@@ -95,50 +86,37 @@ public class RestTask extends AsyncTask<String,String, String> {
 
     @Override
     protected void onPreExecute() {
-        if(d != null) {
-            d.setTitle("Blinds are operating");
-            d.setMessage("Please wait.");
-            d.setIndeterminate(true);
-            d.setCancelable(false);
-            d.show();
-        }
     }
 
     @Override
-        protected void onPostExecute(String result)
+        protected void onPostExecute(Integer result)
         {
-
+                    String tvString= "";
                     super.onPostExecute(result);
                     int temp = t.getId();
                     System.out.println(temp);
                     if (temp == 2131558516) {
-                        if (result.equals("Pin D5 set to 1")) {
-                            result = "Manual";
+                        if (result == 1) {
+                            tvString = "Manual";
                         }
-
-                        if(result.equals("Pin D5 set to 0")){
-                            result = "Automatic";
+                        else if(result == 0){
+                            tvString ="Automatic";
+                        }else{
+                            tvString= "Error";
                         }
-
                     }
                     if (temp == 2131558517) {
-                        if (result.equals("1")) {
-                            result = "Open";
-                        } else {
-                            result = "Closed";
+                        if (result == 1) {
+                            tvString = "Open";
+                        }
+                        else if(result == 0){
+                            tvString ="Closed";
+                        }else{
+                            tvString= "Error";
                         }
                     }
-                    t.setText(result);
-                    if (d != null) {
-                        long delayMillis = 43000;
-                        Timer timer = new Timer();
-                        timer.schedule(new TimerTask() {
-                            @Override
-                            public void run() {
-                                d.dismiss();
-                            }
-                        }, delayMillis);
-                    }
+                    t.setText(tvString);
+
 
         }
 

@@ -4,12 +4,15 @@ package com.cnu.rufflez.AutoShade;
  * Created by Nana on 3/28/2016.
  */
 
+import android.app.Activity;
+import android.app.Fragment;
 import android.app.ProgressDialog;
 
 
 
         import android.app.ProgressDialog;
-        import android.os.AsyncTask;
+import android.content.Context;
+import android.os.AsyncTask;
         import android.widget.TextView;
 
         import org.json.JSONException;
@@ -31,14 +34,15 @@ import android.app.ProgressDialog;
 public class RestTaskOpenClose extends AsyncTask<String,String, String> {
 
     public static final String BaseUrl = "https://cloud.arest.io/001/";
-    private TextView t;
     private ProgressDialog d;
 
-
-    RestTaskOpenClose(TextView t, ProgressDialog d){
-        this.t = t;
+    RestTaskOpenClose(){
+        
+    }
+    RestTaskOpenClose(ProgressDialog d){
         this.d = d;
     }
+
 
     @Override
     protected String doInBackground(String... params)
@@ -64,7 +68,6 @@ public class RestTaskOpenClose extends AsyncTask<String,String, String> {
             JSONObject json = null;
             String message = null;
             try {
-                System.out.println(finalRes);
                 json = new JSONObject(finalRes);
                 if(json.has("message")) {
                     message = json.getString("message");
@@ -105,15 +108,7 @@ public class RestTaskOpenClose extends AsyncTask<String,String, String> {
     {
 
         super.onPostExecute(result);
-        int temp = t.getId();
-        System.out.println(temp);
 
-            if (result.equals("1")) {
-                result = "Open";
-            } else {
-                result = "Closed";
-            }
-        t.setText(result);
         if (d != null) {
             long delayMillis = 43000;
             Timer timer = new Timer();

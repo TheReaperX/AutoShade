@@ -1,5 +1,6 @@
 package com.cnu.rufflez.AutoShade;
 
+import android.app.Activity;
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.os.Bundle;
@@ -31,7 +32,7 @@ public class homeFragment extends Fragment{
     ProgressDialog dialog;
 
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState){
+    public View onCreateView(final LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState){
         final View rootView = inflater.inflate(R.layout.home, container, false);
 
         toggle = (ToggleButton) rootView.findViewById(R.id.toggleButton);
@@ -49,19 +50,21 @@ public class homeFragment extends Fragment{
         }else{
             toggle.setChecked(false);
         }
+
         toggle.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
 
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-                new RestTask(mode).execute("digital/5/1");
+                new RestTaskOpenClose().execute("digital/5/1");
                 if (isChecked) {
                     // toggled to open
                     //TextView mode = (TextView) rootView.findViewById(R.id.mode);
-                    Context context = getActivity().getApplicationContext();
+                    Context context = getActivity().getApplication();
                     CharSequence text = "Blinds are opening";
                     int duration = Toast.LENGTH_SHORT;
                     //new RestTask(response5).execute("digital/5/1");
                     openState.setText("Open");
-                    new RestTask(openState,dialog).execute("digital/4/1");
+                    new RestTaskOpenClose(dialog).execute("digital/4/1");
+                    updateTV();
                     Toast toast = Toast.makeText(context, text, duration);
                     //toggle.setTextOn("Close");
                     toast.show();
@@ -74,7 +77,8 @@ public class homeFragment extends Fragment{
                     int duration = Toast.LENGTH_SHORT;
                     //new RestTask(response5).execute("digital/5/1");
                     openState.setText("Closed");
-                    new RestTask(openState,dialog).execute("digital/4/0");
+                    new RestTaskOpenClose(dialog).execute("digital/4/0");
+                    updateTV();
                     Toast toast = Toast.makeText(context, text, duration);
                     //toggle.setTextOff("Open");
                     toast.show();
@@ -90,5 +94,14 @@ public class homeFragment extends Fragment{
             }
         });
         return rootView;
+    }
+    public void updateTV(){
+        new RestTask(mode).execute("digital/5/");
+        new RestTask(openState).execute("digital/4/");
+        if(openState.getText().equals("Open")){
+            toggle.setChecked(true);
+        }else{
+            toggle.setChecked(false);
+        }
     }
 }
