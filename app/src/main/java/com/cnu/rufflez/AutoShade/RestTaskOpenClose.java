@@ -37,7 +37,7 @@ public class RestTaskOpenClose extends AsyncTask<String,String, String> {
     private ProgressDialog d;
 
     RestTaskOpenClose(){
-        
+
     }
     RestTaskOpenClose(ProgressDialog d){
         this.d = d;
