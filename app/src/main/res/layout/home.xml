@@ -74,11 +74,12 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="New ToggleButton"
-        android:textOn="Close"
-        android:textOff="Open"
+        android:textOn=""
+        android:textOff=""
         android:id="@+id/toggleButton"
         android:layout_gravity="center_horizontal"
-        android:layout_weight="0.06" />
+        android:layout_weight="0.06"
+        android:background="@drawable/toggle_switch"/>
 
     <TextView
         android:layout_width="wrap_content"
